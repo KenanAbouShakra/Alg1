@@ -64,7 +64,6 @@ public class Oblig1Test {
             System.out.println("Oppgave 1: d) Maks-metoden: feil i ombyttingene!");
             antallFeil++;
         }
-
         a = new int[]{6, 5, 4, 3, 2, 1};
         b = new int[]{1, 2, 3, 4, 5};
         c = new int[]{4, 9, 3, 6, 1, 5, 7, 8, 10, 2};
