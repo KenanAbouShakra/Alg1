@@ -20,13 +20,16 @@ public class Oblig1 {
 
         int n = a.length;
         int maksVerdi = a[n - 1];
-
-        for (int i = 1; i < a.length; i++) {
-            if (a[i - 1] > a[i]) {
-                bytt(a, i - 1, i);
+        if(a.length==1){
+            return maksVerdi;
+        }else{
+            for (int i = 1; i < a.length; i++) {
+                if (a[i - 1] > a[i]) {
+                    bytt(a, i - 1, i);
+                }
             }
+            return a[n- 1];
         }
-        return a[n- 1];
     }
 
     public static int ombyttinger(int[] a) {
