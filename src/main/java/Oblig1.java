@@ -97,69 +97,43 @@ public class Oblig1 {
         int n = a.length;
         int i = 0, j = n - 1;
 
-        if (a.length == 0) return;
-
         while (i <= j) {
-            if ((a[i] % 2 == 0) && !(a[j] % 2 == 0)) {
-                bytt(a, i++, j--);
-            } else if (a[i] % 2 == 0) {
-                j--;
-            } else if (!(a[j] % 2 == 0)) {
+            if (a[i] % 2 != 0) {
                 i++;
-            } else if (!(a[i] % 2 == 0) && (a[j] % 2 == 0)) {
+            } else if (a[j] % 2 == 0) {
+                j--;
+            } else {
+                bytt(a, i, j);
                 i++;
                 j--;
             }
         }
-        kvikksortering(a,0,i);
-        kvikksortering(a,i,n);
+
+        quickSort(a, 0, i - 1);
+        quickSort(a, i, n - 1);
     }
-
-    //////////////KODEN FRA KOMPENDIET //////////////////
-
-    private static void kvikksortering0(int[] a, int i, int j)  // en privat metode
-    {
-        if (i >= j) return;  // a[v:h] er tomt eller har maks ett element
-        int k = sParter(a, i, j, (i + j)/2);  // bruker midtverdien
-        kvikksortering0(a, i, k - 1);     // sorterer intervallet a[v:k-1]
-        kvikksortering0(a, k + 1, j);     // sorterer intervallet a[k+1:h]
-    }
-
-
-    private static int sParter(int[] a, int i, int j, int indeks)
-    {
-        bytt(a, indeks, j);           // skilleverdi a[indeks] flyttes bakerst
-        int pos = parter(a, i, j - 1, a[j]);  // partisjonerer a[v:h − 1]
-        bytt(a, pos, j);              // bytter for å få skilleverdien på rett plass
-        return pos;                   // returnerer posisjonen til skilleverdien
-    }
-
-    private static int parter(int[] a, int i, int j, int skilleverdi)
-    {
-        while (true)                                  // stopper når v > h
-        {
-            while (i <= j && a[i] < skilleverdi) i++;   // h er stoppverdi for v
-            while (i <= j && a[j] >= skilleverdi) j--;  // v er stoppverdi for h
-
-            if (i < j) bytt(a,i++,j--);                 // bytter om a[v] og a[h]
-            else  return i;  // a[v] er nåden første som ikke er mindre enn skilleverdi
+    private static void quickSort(int[] a, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(a, low, high);
+            quickSort(a, low, pivotIndex - 1);
+            quickSort(a, pivotIndex + 1, high);
         }
     }
 
-    public static void kvikksortering(int[] a, int fra, int til) // a[fra:til>
-    {
-        kvikksortering0(a, fra, til - 1);  // v = fra, h = til - 1
+    private static int partition(int[] a, int low, int high) {
+        int pivot = a[high];
+        int i = (low - 1);
+
+        for (int j = low; j < high; j++) {
+            if (a[j] < pivot) {
+                i++;
+                bytt(a, i, j);
+            }
+        }
+
+        bytt(a, i + 1, high);
+        return i + 1;
     }
-
-    public static void kvikksortering(int[] a)   // sorterer hele tabellen
-    {
-        kvikksortering0(a, 0, a.length - 1);
-    }
-
-
-
-    /////////////////TIL HER ////////////////////////////
-
     ///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
         if(a.length <= 1){
